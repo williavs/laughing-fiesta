@@ -83,6 +83,7 @@ def features_content(columns):
         - Clay compatible
         - Easy enrichment
         """)
+    
 
 @st.cache_resource
 def get_scraper():
@@ -123,19 +124,12 @@ def render_business_search():
 
 def render_export_options(results_df):
     """Handle export options for search results"""
-    st.subheader("Export Data")
-    if st.button("Export to CSV"):
-        output_path = "business_search_data.csv"
-        results_df.to_csv(output_path, index=False)
-        st.success(f"Data exported to {output_path}")
-        
-        with open(output_path, "rb") as file:
-            st.download_button(
-                label="Download CSV",
-                data=file,
-                file_name=output_path,
-                mime="text/csv"
-            )
+    st.download_button(
+        label="Download CSV",
+        data=results_df.to_csv(index=False),
+        file_name="business_search_data.csv",
+        mime="text/csv"
+    )
 
 @st.cache_resource
 def load_about_module():
